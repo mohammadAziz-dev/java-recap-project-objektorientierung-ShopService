@@ -1,1 +1,1 @@
-It will be update later soon and many more task or functionalities will be added too.
+This will be updated soon, with many more tasks and functionalities to be added in future updates.
