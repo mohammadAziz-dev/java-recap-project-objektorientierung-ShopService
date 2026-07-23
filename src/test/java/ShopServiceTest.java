@@ -63,4 +63,37 @@ class ShopServiceTest {
                         )
         );
     }
+
+    @Test
+    void updateOrder_whenOrderExists_updatesStatus() {
+        // GIVEN
+        ShopService shopService = new ShopService();
+        Order savedOrder = shopService.addOrder(List.of("1"));
+
+        // WHEN
+        Order actual = shopService.updateOrder(
+                savedOrder.id(),
+                OrderStatus.COMPLETED
+        );
+
+        // THEN
+        assertEquals(OrderStatus.COMPLETED, actual.status());
+        assertEquals(savedOrder.id(), actual.id());
+        assertEquals(savedOrder.products(), actual.products());
+    }
+
+    @Test
+    void updateOrder_whenOrderDoesNotExist_throwsException() {
+        // GIVEN
+        ShopService shopService = new ShopService();
+
+        // WHEN & THEN
+        assertThrows(
+                NoSuchElementException.class,
+                () -> shopService.updateOrder(
+                        "unknown-id",
+                        OrderStatus.COMPLETED
+                )
+        );
+    }
 }
